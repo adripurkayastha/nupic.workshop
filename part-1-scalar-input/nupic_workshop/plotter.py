@@ -88,7 +88,7 @@ class PlotlyPlotter(object):
       name = "value"
     if title is None:
       title = "Value"
-    return Scatter(x=self.rawData["timestamp"],
+    return Scatter(x=range(0, len(self.rawData[name])),
                    y=self.rawData[name],
                    name=title,
                    line=Line(
@@ -104,7 +104,7 @@ class PlotlyPlotter(object):
     if useLog:
       yName = "logAnomalyLikelihood"
       yTitle = "Log(Anomaly Likelihood)"
-    return Bar(x=self.rawData["timestamp"],
+    return Bar(x=range(0, len(self.rawData[yName])),
                y=self.rawData[yName],
                name=yTitle,
                yaxis="y2",

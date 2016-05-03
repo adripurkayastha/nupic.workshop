@@ -25,7 +25,7 @@ from nupic_workshop.utils import getDataFrame, getMinMax, runDataThroughModel
 from nupic_workshop.args import parseArgs
 
 OUTPUT_DIR = "out"
-MODEL_PARAMS_PATH = "model_params/model_params.json"
+MODEL_PARAMS_PATH = "model_params/model_params_fives_sixes.json"
 
 
 def createPredictionModel(dataFrame):

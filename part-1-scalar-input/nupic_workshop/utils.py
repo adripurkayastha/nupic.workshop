@@ -36,11 +36,9 @@ def getMinMax(dataFrame):
 
 
 def convertToWritableOutput(result, anomalyLikelihood):
-  timestamp = result.rawInput["timestamp"]
   value = result.rawInput["value"]
   inferences = result.inferences
   output = {
-    "timestamp": timestamp,
     "value": value,
     "prediction": inferences["multiStepBestPredictions"][1]
   }
@@ -49,7 +47,7 @@ def convertToWritableOutput(result, anomalyLikelihood):
     anomalyScore = inferences["anomalyScore"]
     output["anomalyScore"] = anomalyScore
     likelihood = anomalyLikelihood.anomalyProbability(
-      value, anomalyScore, timestamp)
+      value, anomalyScore)
     logAnomalyLikelihood = anomalyLikelihood.computeLogLikelihood(anomalyScore)
     output["logAnomalyLikelihood"] = logAnomalyLikelihood
     output["anomalyLikelihood"] = likelihood
@@ -61,10 +59,8 @@ def runDataThroughModel(model, dataFrame):
   anomalyLikelihood = anomaly_likelihood.AnomalyLikelihood()
   out = []
   for index, row in dataFrame.iterrows():
-    timestamp = datetime.strptime(row["timestamp"], DATE_FORMAT)
     value = int(row["value"])
     result = model.run({
-      "timestamp": timestamp,
       "value": value
     })
     if index % 100 == 0:
